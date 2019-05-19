@@ -12,22 +12,22 @@ namespace ms.UI
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class BookListViewPage : ContentPage
     {
-        public ObservableCollection<string> Items { get; set; }
+        public ObservableCollection<Data.Book> books { get; set; }
 
         public BookListViewPage()
         {
             InitializeComponent();
 
-            Items = new ObservableCollection<string>
+            books = new ObservableCollection<Data.Book>
             {
-                "Item 1",
-                "Item 2",
-                "Item 3",
-                "Item 4",
-                "Item 5"
+                new Data.Book(),
+                new Data.Book(),
+                new Data.Book(),
+                new Data.Book(),
+                new Data.Book()
             };
 			
-			MyListView.ItemsSource = Items;
+			this.listView.ItemsSource = books;
         }
 
         async void Handle_ItemTapped(object sender, ItemTappedEventArgs e)
@@ -35,10 +35,26 @@ namespace ms.UI
             if (e.Item == null)
                 return;
 
-            await DisplayAlert("Item Tapped", "An item was tapped.", "OK");
+            await Navigation.PushAsync(new BookPage());
+                //DisplayAlert("Item Tapped", "An item was tapped.", "OK");
 
-            //Deselect Item
+            //deselect Item
             ((ListView)sender).SelectedItem = null;
+        }
+
+        private void updateButtonClicked(object sender, EventArgs e)
+        {
+            //try to update
+            Data.BookLoader.loadData();
+
+            if (Data.BookLoader.result == null)
+                //success code
+                books = Data.BookLoader.result;
+            else
+                //fail code
+                DisplayAlert("Update Failed",
+                    "Couldn't update data, try again later.",
+                    "OK");
         }
     }
 }
