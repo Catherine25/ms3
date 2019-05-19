@@ -1,19 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using Xamarin.Forms;
+﻿using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 namespace ms.UI
 {
-	[XamlCompilation(XamlCompilationOptions.Compile)]
+    [XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class BookCell : ViewCell
 	{
-        private ImageSource ImageSource { get; set; }
-        private string Author, Desc;
+        public ImageSource ImageSource { get; set; }
+        public string Author, Desc;
         
         public BookCell() => InitializeComponent();
 
