@@ -11,7 +11,7 @@ namespace ms
         {
             InitializeComponent();
 
-            MainPage = new MainPage();
+            MainPage = new NavigationPage(new UI.BookListViewPage());
         }
 
         protected override void OnStart()

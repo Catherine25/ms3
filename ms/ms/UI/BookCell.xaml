@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ViewCell xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ms.UI.BookCell">
+  <ViewCell.View>
+      <StackLayout>
+            <Image x:Name="image"
+                   Source="{Binding ImageSource}"/>
+            <Label x:Name="authorLabel"
+                   Text="{Binding Author}"/>
+            <Label x:Name="descLabel"
+                   Text="{Binding Desc}"/>
+        </StackLayout>
+  </ViewCell.View>
+</ViewCell>
