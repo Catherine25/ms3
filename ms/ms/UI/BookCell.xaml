@@ -5,11 +5,21 @@
   <ViewCell.View>
       <StackLayout>
             <Image x:Name="image"
-                   Source="{Binding ImageSource}"/>
+                   Aspect="AspectFit"
+                   Source="{Binding ImageSource}"
+                   Margin="10, 0, 0, 0"/>
+          
             <Label x:Name="authorLabel"
-                   Text="{Binding Author}"/>
+                   FontSize="Micro"
+                   TextColor="Black"
+                   FontAttributes="Bold"
+                   Text="{Binding Author}"
+                   Margin="70, 0, 0, 0"/>
+          
             <Label x:Name="descLabel"
-                   Text="{Binding Desc}"/>
+                   Text="{Binding Desc}"
+                   FontSize="Micro"
+                   Margin="70, 0, 0, 0"/>
         </StackLayout>
   </ViewCell.View>
 </ViewCell>

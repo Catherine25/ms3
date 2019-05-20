@@ -5,7 +5,6 @@
              x:Class="ms.UI.BookListViewPage">
     <StackLayout>
         <ListView x:Name="listView"
-            ItemsSource="{Binding books}"
                   ItemTapped="Handle_ItemTapped"
                   CachingStrategy="RecycleElement">
 
@@ -16,7 +15,7 @@
             </ListView.ItemTemplate>
         </ListView>
 
-        <Button Text="Update"
-                Clicked="updateButtonClicked"/>
+        <Button x:Name="updateButton"
+                Text="Update"/>
     </StackLayout>
 </ContentPage>

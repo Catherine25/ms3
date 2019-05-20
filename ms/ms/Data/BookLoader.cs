@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Net.Http;
+using System.Threading.Tasks;
 
 namespace ms.Data
 {
@@ -14,7 +15,7 @@ namespace ms.Data
         const string url =
             "http://ec2-18-130-203-173.eu-west-2.compute.amazonaws.com/ms.json";
 
-        public static async void loadData()
+        public static async Task<ObservableCollection<Book>> loadDataAsync()
         {
             result = null;
 
@@ -36,17 +37,19 @@ namespace ms.Data
 
                 RootObject productsRoot = JsonConvert.DeserializeObject<RootObject>(content);
 
-                result = productsRoot.books;
+                result = productsRoot.list;
             }
             catch
             {
                 result = null;
             }
+
+            return result;
         }
     }
 
     public class RootObject
     {
-        public ObservableCollection<Book> books;
+        public ObservableCollection<Book> list;
     }
 }

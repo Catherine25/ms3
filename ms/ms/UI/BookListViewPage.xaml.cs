@@ -1,8 +1,6 @@
-﻿using System;
+﻿using ms.Data;
+using System;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Linq;
-using System.Threading.Tasks;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -12,22 +10,48 @@ namespace ms.UI
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class BookListViewPage : ContentPage
     {
-        public ObservableCollection<Data.Book> books { get; set; }
+        public ObservableCollection<Book> Books
+        {
+            get => books;
+            set
+            {
+                books = value;
+                OnPropertyChanged("books");
+            }
+        }
+
+        private ObservableCollection<Book> books = new ObservableCollection<Book>();
 
         public BookListViewPage()
         {
             InitializeComponent();
 
-            books = new ObservableCollection<Data.Book>
+            System.Diagnostics.Debug.WriteLine("");
+            System.Diagnostics.Debug.WriteLine("BookListViewPage init");
+            System.Diagnostics.Debug.WriteLine("");
+
+            updateButton.Clicked += updateButton_Clicked;
+
+            listView.ItemsSource = Books;
+
+            Books.Add(new Book()
             {
-                new Data.Book(),
-                new Data.Book(),
-                new Data.Book(),
-                new Data.Book(),
-                new Data.Book()
-            };
-			
-			this.listView.ItemsSource = books;
+                Author = "author one",
+                Desc = "desc one",
+                Image = "capture.png"
+            });
+            Books.Add(new Book()
+            {
+                Author = "author two",
+                Desc = "desc two",
+                Image = "statue.png"
+            });
+            Books.Add(new Book()
+            {
+                Author = "author three",
+                Desc = "desc three",
+                Image = "user.png"
+            });
         }
 
         async void Handle_ItemTapped(object sender, ItemTappedEventArgs e)
@@ -35,26 +59,33 @@ namespace ms.UI
             if (e.Item == null)
                 return;
 
-            await Navigation.PushAsync(new BookPage());
-                //DisplayAlert("Item Tapped", "An item was tapped.", "OK");
+            object selectedBook = ((ListView)sender).SelectedItem;
 
-            //deselect Item
+            await Navigation.PushAsync(new BookPage((Book)selectedBook));
+
             ((ListView)sender).SelectedItem = null;
         }
 
-        private void updateButtonClicked(object sender, EventArgs e)
+        private async void updateButton_Clicked(object sender, EventArgs e)
         {
             //try to update
-            Data.BookLoader.loadData();
+            ObservableCollection<Book> newBooks = await BookLoader.loadDataAsync();
 
-            if (Data.BookLoader.result == null)
+            if (newBooks != null)
+            {
+                books.Clear();
                 //success code
-                books = Data.BookLoader.result;
+
+                foreach (Book b in newBooks)
+                    books.Add(b);
+            }
             else
                 //fail code
-                DisplayAlert("Update Failed",
-                    "Couldn't update data, try again later.",
+                await DisplayAlert("Update Failed",
+                    "Couldn't update data, please try again later.",
                     "OK");
+
+            books.Add(new Book());
         }
     }
 }
