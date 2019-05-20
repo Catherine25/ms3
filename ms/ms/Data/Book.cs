@@ -4,7 +4,7 @@ namespace ms.Data
 {
     public class Book : INotifyPropertyChanged
     {
-        private string author, desc, imagePath;
+        private string author, desc, image;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -31,13 +31,13 @@ namespace ms.Data
             }
         }
 
-        public string ImagePath
+        public string Image
         {
-            get { return imagePath; }
+            get { return image; }
             set
             {
-                imagePath = value;
-                OnPropertyChanged("ImagePath");
+                image = value;
+                OnPropertyChanged("Image");
             }
         }
     }
