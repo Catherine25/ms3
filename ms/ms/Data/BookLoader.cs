@@ -1,7 +1,6 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -15,7 +14,28 @@ namespace ms.Data
         const string url =
             "http://ec2-18-130-203-173.eu-west-2.compute.amazonaws.com/ms.json";
 
-        public static async Task<ObservableCollection<Book>> loadDataAsync()
+        public static string parseToJSON(ObservableCollection<Book> books)
+        {
+            RootObject rootObject = new RootObject
+            {
+                list = books
+            };
+
+            return JsonConvert.SerializeObject(rootObject);
+        }
+
+        public static ObservableCollection<Book> parseToObject(string JSON)
+        {
+            JObject o = JObject.Parse(JSON);
+
+            var str = o.SelectToken(@"");
+
+            RootObject productsRoot = JsonConvert.DeserializeObject<RootObject>(JSON);
+
+            return productsRoot.list;
+        }
+
+        public static async Task<ObservableCollection<Book>> loadDataFromURLAsync()
         {
             result = null;
 
@@ -26,18 +46,12 @@ namespace ms.Data
                     BaseAddress = new Uri(url)
                 };
 
-                var response = await httpClient.GetAsync(httpClient.BaseAddress);
+                HttpResponseMessage response = await httpClient.GetAsync(httpClient.BaseAddress);
                 response.EnsureSuccessStatusCode();
 
-                var content = await response.Content.ReadAsStringAsync();
+                string content = await response.Content.ReadAsStringAsync();
 
-                JObject o = JObject.Parse(content);
-
-                var str = o.SelectToken(@"");
-
-                RootObject productsRoot = JsonConvert.DeserializeObject<RootObject>(content);
-
-                result = productsRoot.list;
+                result = parseToObject(content);
             }
             catch
             {
@@ -45,6 +59,17 @@ namespace ms.Data
             }
 
             return result;
+        }
+
+        public static async Task<ObservableCollection<Book>> loadDataFromFile()
+        {
+            if (await new FileWorker().existsAsync("books.txt"))
+            {
+                string text = await new FileWorker().loadTextAsync("books.txt");
+                return BookLoader.parseToObject(text);
+            }
+
+            else throw new Exception();
         }
     }
 
