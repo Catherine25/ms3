@@ -10,6 +10,8 @@ namespace ms.UI
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class BookListViewPage : ContentPage, INotifyPropertyChanged
     {
+        private bool deleteMode = false;
+
         public ObservableCollection<Book> Books
         {
             get => books;
@@ -31,25 +33,6 @@ namespace ms.UI
             System.Diagnostics.Debug.WriteLine("");
 
             updateButton.Clicked += updateButton_Clicked;
-            
-            Books.Add(new Book()
-            {
-                Author = "author one",
-                Desc = "desc one",
-                Image = "capture.jpg"
-            });
-            Books.Add(new Book()
-            {
-                Author = "author two",
-                Desc = "desc two",
-                Image = "statue.png"
-            });
-            Books.Add(new Book()
-            {
-                Author = "author three",
-                Desc = "desc three",
-                Image = "user.png"
-            });
         }
 
         async void Handle_ItemTapped(object sender, ItemTappedEventArgs e)
@@ -59,29 +42,35 @@ namespace ms.UI
 
             object selectedBook = ((ListView)sender).SelectedItem;
 
-            await Navigation.PushAsync(new BookPage((Book)selectedBook));
+            if (deleteMode)
+                books.Remove((Book)selectedBook);
+            else
+                await Navigation.PushAsync(new BookPage((Book)selectedBook));
 
             ((ListView)sender).SelectedItem = null;
         }
 
         private async void updateButton_Clicked(object sender, EventArgs e)
         {
-            //try to update
             ObservableCollection<Book> newBooks = await BookLoader.loadDataFromURLAsync();
 
             if (newBooks != null)
-            {
-                books.Clear();
-                //success code
-
-                foreach (Book b in newBooks)
-                    books.Add(b);
-            }
+                Books = newBooks;
             else
                 //fail code
                 await DisplayAlert("Update Failed",
                     "Couldn't update data, please try again later.",
                     "OK");
+        }
+
+        private void DeleteButton_Clicked(object sender, EventArgs e)
+        {
+            deleteMode = !deleteMode;
+
+            if(deleteMode)
+                ((Button)sender).BackgroundColor = Color.DarkGray;
+            else
+                ((Button)sender).BackgroundColor = Color.LightGray;
         }
     }
 }
