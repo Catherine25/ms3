@@ -18,5 +18,8 @@
 
         <Button x:Name="updateButton"
                 Text="Update"/>
+        <Button x:Name="deleteButton"
+                Text="Delete Cell"
+                Clicked="DeleteButton_Clicked"/>
     </StackLayout>
 </ContentPage>
