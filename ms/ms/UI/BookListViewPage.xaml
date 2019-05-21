@@ -6,7 +6,8 @@
     <StackLayout>
         <ListView x:Name="listView"
                   ItemTapped="Handle_ItemTapped"
-                  CachingStrategy="RecycleElement">
+                  CachingStrategy="RecycleElement"
+                  BindingContext="{Binding books}">
 
             <ListView.ItemTemplate>
                 <DataTemplate>
