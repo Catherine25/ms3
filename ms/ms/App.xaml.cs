@@ -23,8 +23,6 @@ namespace ms
 
             if(s != "")
                 navigationPage.Books = Data.BookLoader.parseToObject(s);
-
-            // Handle when your app starts
         }
 
         protected override void OnSleep()
@@ -32,13 +30,8 @@ namespace ms
             string s = Data.BookLoader.parseToJSON(navigationPage.Books);
 
             CrossSettings.Current.AddOrUpdateValue("books", s);
-
-            // Handle when your app sleeps
         }
 
-        protected override void OnResume()
-        {
-            // Handle when your app resumes
-        }
+        protected override void OnResume() { }
     }
 }
