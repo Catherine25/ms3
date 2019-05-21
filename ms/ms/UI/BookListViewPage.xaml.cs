@@ -1,14 +1,14 @@
 ﻿using ms.Data;
 using System;
 using System.Collections.ObjectModel;
-
+using System.ComponentModel;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 namespace ms.UI
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class BookListViewPage : ContentPage
+    public partial class BookListViewPage : ContentPage, INotifyPropertyChanged
     {
         public ObservableCollection<Book> Books
         {
@@ -16,7 +16,7 @@ namespace ms.UI
             set
             {
                 books = value;
-                OnPropertyChanged("books");
+                listView.ItemsSource = books;
             }
         }
 
@@ -31,14 +31,12 @@ namespace ms.UI
             System.Diagnostics.Debug.WriteLine("");
 
             updateButton.Clicked += updateButton_Clicked;
-
-            listView.ItemsSource = Books;
-
+            
             Books.Add(new Book()
             {
                 Author = "author one",
                 Desc = "desc one",
-                Image = "capture.png"
+                Image = "capture.jpg"
             });
             Books.Add(new Book()
             {
@@ -69,7 +67,7 @@ namespace ms.UI
         private async void updateButton_Clicked(object sender, EventArgs e)
         {
             //try to update
-            ObservableCollection<Book> newBooks = await BookLoader.loadDataAsync();
+            ObservableCollection<Book> newBooks = await BookLoader.loadDataFromURLAsync();
 
             if (newBooks != null)
             {
@@ -84,8 +82,6 @@ namespace ms.UI
                 await DisplayAlert("Update Failed",
                     "Couldn't update data, please try again later.",
                     "OK");
-
-            books.Add(new Book());
         }
     }
 }
