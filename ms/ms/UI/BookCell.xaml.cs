@@ -1,14 +1,16 @@
-﻿using Xamarin.Forms;
+﻿using System.ComponentModel;
+using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 namespace ms.UI
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class BookCell : ViewCell
+	public partial class BookCell : ViewCell, INotifyPropertyChanged
 	{
-        public Data.Book Book;
-        public ImageSource ImageSource { get; set; }
-        public string Author, Desc;
+        public Data.Book Book { get; set; }
+        public ImageSource Image { get; set; }
+        public string Author { get; set; }
+        public string Desc { get; set; }
 
         public BookCell()
         {
@@ -23,9 +25,10 @@ namespace ms.UI
         {
             InitializeComponent();
 
+            Image = (FileImageSource)ImageSource.FromFile(book.Image);
+
             Author = book.Author;
             Desc = book.Desc;
-            ImageSource = (FileImageSource)ImageSource.FromFile(book.Image);
 
             Book = book;
         }
