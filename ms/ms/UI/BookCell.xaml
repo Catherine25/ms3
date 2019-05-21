@@ -3,23 +3,32 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ms.UI.BookCell">
   <ViewCell.View>
-      <StackLayout>
+        <Grid>
             <Image x:Name="image"
-                   Aspect="AspectFit"
-                   Source="{Binding ImageSource}"
-                   Margin="10, 0, 0, 0"/>
+                   Source="{Binding Image}"
+                   HorizontalOptions="Start"
+                   Grid.Column="0"
+                   Grid.Row="0"
+                   Grid.ColumnSpan="2"
+                   Grid.RowSpan="2"/>
           
             <Label x:Name="authorLabel"
                    FontSize="Micro"
                    TextColor="Black"
                    FontAttributes="Bold"
                    Text="{Binding Author}"
-                   Margin="70, 0, 0, 0"/>
+                   HorizontalOptions="Start"
+                   Grid.Column="1"
+                   Grid.ColumnSpan="4"
+                   Grid.Row="0"/>
           
             <Label x:Name="descLabel"
                    Text="{Binding Desc}"
                    FontSize="Micro"
-                   Margin="70, 0, 0, 0"/>
-        </StackLayout>
+                   HorizontalOptions="Start"
+                   Grid.Column="1"
+                   Grid.ColumnSpan="4"
+                   Grid.Row="1"/>
+        </Grid>
   </ViewCell.View>
 </ViewCell>
