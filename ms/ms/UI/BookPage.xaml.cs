@@ -16,11 +16,7 @@ namespace ms.UI
         public BookPage(Data.Book book)
         {
             InitializeComponent();
-
-            //Author = book.Author;
-            //Desc = book.Desc;
-            //Image = (FileImageSource)ImageSource.FromFile(book.Image);
-
+            
             System.Diagnostics.Debug.WriteLine("");
             System.Diagnostics.Debug.WriteLine("BookPage init");
             System.Diagnostics.Debug.WriteLine("");

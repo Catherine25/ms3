@@ -52,7 +52,9 @@ namespace ms.UI
 
         private async void updateButton_Clicked(object sender, EventArgs e)
         {
-            ObservableCollection<Book> newBooks = await BookLoader.loadDataFromURLAsync();
+            string url = "http://ec2-18-130-203-173.eu-west-2.compute.amazonaws.com/ms.json";
+
+            ObservableCollection<Book> newBooks = await BookLoader.loadDataFromURLAsync(url);
 
             if (newBooks != null)
                 Books = newBooks;

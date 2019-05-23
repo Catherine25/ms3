@@ -7,12 +7,9 @@ using System.Threading.Tasks;
 
 namespace ms.Data
 {
-    static class BookLoader
+    public static class BookLoader
     {
         public static ObservableCollection<Book> result;
-
-        const string url =
-            "http://ec2-18-130-203-173.eu-west-2.compute.amazonaws.com/ms.json";
 
         public static string parseToJSON(ObservableCollection<Book> books)
         {
@@ -35,7 +32,7 @@ namespace ms.Data
             return productsRoot.list;
         }
 
-        public static async Task<ObservableCollection<Book>> loadDataFromURLAsync()
+        public static async Task<ObservableCollection<Book>> loadDataFromURLAsync(string url)
         {
             result = null;
 
@@ -59,17 +56,6 @@ namespace ms.Data
             }
 
             return result;
-        }
-
-        public static async Task<ObservableCollection<Book>> loadDataFromFile()
-        {
-            if (await new FileWorker().existsAsync("books.txt"))
-            {
-                string text = await new FileWorker().loadTextAsync("books.txt");
-                return BookLoader.parseToObject(text);
-            }
-
-            else throw new Exception();
         }
     }
 
