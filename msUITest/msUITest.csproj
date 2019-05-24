@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -28,11 +28,19 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="NUnit" Version="2.6.4" />
-    <PackageReference Include="Xamarin.UITest" Version="2.2.4" />
+    <PackageReference Include="NUnit" Version="3.12.0" />
+    <PackageReference Include="Xamarin.UITest" Version="3.0.0" />
     <PackageReference Include="NUnitTestAdapter" Version="2.1.1" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ms\ms.Android\ms.Android.csproj">
+      <Project>{b868207b-17e8-4f77-be9b-0c9ab36479fd}</Project>
+      <Name>ms.Android</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ms\ms\ms.csproj">
+      <Project>{ee22a05e-b395-4dbf-ba4a-e674fe8a289c}</Project>
+      <Name>ms</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Tests.cs" />
