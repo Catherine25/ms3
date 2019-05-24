@@ -14,24 +14,29 @@ namespace msUITest
         IApp app;
         Platform platform;
 
-        public Tests(Platform platform)
-        {
-            this.platform = platform;
-        }
+        public Tests(Platform platform) => this.platform = platform;
 
         [SetUp]
-        public void BeforeEachTest()
-        {
-            app = AppInitializer.StartApp(platform);
-        }
+        public void BeforeEachTest() => app = AppInitializer.StartApp(platform);
 
         [Test]
         public void WelcomeTextIsDisplayed()
         {
-            AppResult[] results = app.WaitForElement(c => c.Marked("Welcome to Xamarin.Forms!"));
-            app.Screenshot("Welcome screen.");
+            app.Tap("cell");
 
-            Assert.IsTrue(results.Any());
+            app.WaitForElement("bookCellPage");
+
+            var appResult = app.Screenshot("");
+        }
+
+        [Test]
+        public void WelcomeTextIsDisplayed1()
+        {
+            app.Tap("cell");
+
+            app.WaitForElement("bookCellPage");
+
+            var appResult = app.Screenshot("");
         }
     }
 }

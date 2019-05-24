@@ -5,8 +5,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{B19C892E-2628-4CA7-AD27-08D406A3B14B}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>msUITest</RootNamespace>
-    <AssemblyName>msUITest</AssemblyName>
+    <RootNamespace>UITest1</RootNamespace>
+    <AssemblyName>UITest1</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -29,18 +29,13 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="NUnit" Version="3.12.0" />
+    <PackageReference Include="NUnit3TestAdapter">
+      <Version>3.13.0</Version>
+    </PackageReference>
     <PackageReference Include="Xamarin.UITest" Version="3.0.0" />
     <PackageReference Include="NUnitTestAdapter" Version="2.1.1" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ms\ms.Android\ms.Android.csproj">
-      <Project>{b868207b-17e8-4f77-be9b-0c9ab36479fd}</Project>
-      <Name>ms.Android</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ms\ms\ms.csproj">
-      <Project>{ee22a05e-b395-4dbf-ba4a-e674fe8a289c}</Project>
-      <Name>ms</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Tests.cs" />
