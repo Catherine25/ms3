@@ -51,7 +51,7 @@ namespace msTest
 
             result = ms.Data.BookLoader.parseToObject(json);
 
-            Assert(test == result);
+            Assert(test.Count == result.Count);
         }
     }
 }
