@@ -7,11 +7,12 @@
         <ListView x:Name="listView"
                   ItemTapped="Handle_ItemTapped"
                   CachingStrategy="RecycleElement"
-                  BindingContext="{Binding books}">
+                  BindingContext="{Binding books}"
+                  AutomationId="cellList">
 
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <ui:BookCell/>
+                    <ui:BookCell AutomationId="cell"/>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
